@@ -46,7 +46,7 @@ public class RegistrationActivity extends AppCompatActivity {
         if (!name.getText().toString().trim().equals("") && !eMail.getText().toString().trim().equals("") && !password.getText().toString().trim().equals("") && !confirmPassword.getText().toString().trim().equals("")) {
             if (eMales.contains(eMail.getText().toString().trim())) {
                 Toast.makeText(this, "this eMale is already taken", Toast.LENGTH_SHORT).show();
-            } else if (!password.getText().toString().trim().equals(confirmPassword)) {
+            } else if (!password.getText().toString().trim().equals(confirmPassword.getText().toString().trim())) {
                 Toast.makeText(this, "confirm password", Toast.LENGTH_SHORT).show();
             } else {
                 UserData user = new UserData();
