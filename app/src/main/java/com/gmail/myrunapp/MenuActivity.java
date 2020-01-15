@@ -2,6 +2,7 @@ package com.gmail.myrunapp;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,7 +37,6 @@ public class MenuActivity extends AppCompatActivity {
 
     private static final int MAX_DAYS = 42;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +48,24 @@ public class MenuActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.monthRightM);
         previousButton = findViewById(R.id.monthLeftM);
         gridView = findViewById(R.id.gridViewM);
+        goal = findViewById(R.id.textViewCountdownM);
 
         currentDate.setText(dateFormat.format(calendar.getTime()));
 
         initializeDates();
         adapter = new GridAdapter(this, dates, calendar);
         gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Date date = (Date) adapter.getItem(position);
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+                String text = dateFormat.format(date);
+                goal.setText(text);
+            }
+        });
     }
 
     public void nextMonth(View view){

@@ -44,12 +44,15 @@ public class GridAdapter extends BaseAdapter {
         Date monthDate = dates.get(position);
         Calendar dateCalendar = Calendar.getInstance();
         dateCalendar.setTime(monthDate);
+
         int dayNumber = dateCalendar.get(Calendar.DAY_OF_MONTH);
 
         int displayMonth = dateCalendar.get(Calendar.MONTH) + 1;
         int displayYear = dateCalendar.get(Calendar.YEAR);
         int currentMonth = calendar.get(Calendar.MONTH) + 1;
         int currentYear = calendar.get(Calendar.YEAR);
+
+        Calendar higlightCalendar = Calendar.getInstance();
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -58,6 +61,10 @@ public class GridAdapter extends BaseAdapter {
 
         if (displayMonth != currentMonth || displayYear != currentYear) {
             convertView.setBackgroundResource(R.drawable.shape_grid_cell_dark);
+        }
+
+        if ((higlightCalendar.get(Calendar.DAY_OF_MONTH) == dateCalendar.get(Calendar.DAY_OF_MONTH)) && (higlightCalendar.get(Calendar.MONTH) == dateCalendar.get(Calendar.MONTH)) && (higlightCalendar.get(Calendar.DAY_OF_MONTH) == dateCalendar.get(Calendar.DAY_OF_MONTH))) {
+            convertView.setBackgroundResource(R.drawable.shape_grid_cell_highlighted);
         }
 
         TextView dayNo = convertView.findViewById(R.id.calendarDayG);
