@@ -1,5 +1,6 @@
 package com.gmail.myrunapp;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
 
@@ -32,6 +34,7 @@ public class MenuActivity extends AppCompatActivity {
     GridView gridView;
     Toolbar actionBar;
     ActionMode mActionMode;
+    AlertDialog addDialog;
 
     DbHelper dbHelper;
     GridAdapter adapter;
@@ -129,7 +132,7 @@ public class MenuActivity extends AppCompatActivity {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.addRunM: {
-                    Toast.makeText(MenuActivity.this, "add", Toast.LENGTH_SHORT).show();
+                    showDialog();
                     mode.finish();
                     return true;
                 }
@@ -154,4 +157,28 @@ public class MenuActivity extends AppCompatActivity {
 
         }
     };
+
+    public void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final CharSequence[] events = {"Set run", "Confirm run"};
+        builder.setTitle("Chose activity").setItems(events, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0: {
+                        Toast.makeText(MenuActivity.this, "Set run", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    case 1: {
+                        Toast.makeText(MenuActivity.this, "Confirm run", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+            }
+        });
+        addDialog = builder.create();
+        addDialog.show();
+    }
+
+
 }
