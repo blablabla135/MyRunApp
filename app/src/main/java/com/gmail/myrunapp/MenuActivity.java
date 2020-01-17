@@ -1,6 +1,7 @@
 package com.gmail.myrunapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,8 @@ public class MenuActivity extends AppCompatActivity {
     DbHelper dbHelper;
     GridAdapter adapter;
 
+    String profile;
+
     public Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
@@ -53,6 +56,9 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        Intent intent = getIntent();
+        profile = intent.getStringExtra("eMail");
+
         dbHelper = new DbHelper(this);
 
         currentDate = findViewById(R.id.textViewDateM);
@@ -61,6 +67,8 @@ public class MenuActivity extends AppCompatActivity {
         gridView = findViewById(R.id.gridViewM);
         goal = findViewById(R.id.textViewCountdownM);
         actionBar = findViewById(R.id.actionBarM);
+
+        goal.setText(profile);
 
         setSupportActionBar(actionBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

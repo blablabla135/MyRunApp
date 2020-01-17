@@ -55,6 +55,7 @@ public class StartActivity extends AppCompatActivity {
                 Toast.makeText(this, "wrong password", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(this, MenuActivity.class);
+                intent.putExtra("eMail", eMail.getText().toString().trim());
                 startActivity(intent);
             }
         } else {
@@ -65,6 +66,7 @@ public class StartActivity extends AppCompatActivity {
     public void signUp(View view) {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
+
     }
 }
 
