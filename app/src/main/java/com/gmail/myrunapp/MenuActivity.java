@@ -47,7 +47,7 @@ public class MenuActivity extends AppCompatActivity {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
 
     private List<Date> dates = new ArrayList<>();
-    private List<Event> events = new ArrayList<>();
+    private List<EventData> events = new ArrayList<>();
 
     private static final int MAX_DAYS = 42;
 

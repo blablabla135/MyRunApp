@@ -19,21 +19,17 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TABLE_EVENT_DATA = "event";
 
     public static final String COLUMN_EVENT_ID = "event_id";
-    public static final String COLUMN_EVENT_NAME = "event_name";
     public static final String COLUMN_EVENT_DATE = "event_date";
-    public static final String COLUMN_EVENT_MONTH = "event_month";
-    public static final String COLUMN_EVENT_YEAR = "event_year";
-    public static final String COLUMN_EVENT_IS_DONE = "event_is_done";
-    public static final String COLUMN_EVENT_GOAL = "event_goal";
+    public static final String COLUMN_EVENT_DISTANCE = "event_distance";
+    public static final String COLUMN_EVENT_PROFILE = "event_profile";
 
     private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER_DATA + "("
             + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_USER_NAME + " TEXT,"
             + COLUMN_USER_EMAIL + " TEXT," + COLUMN_USER_PASSWORD + " TEXT" + ")";
 
     private String CREATE_EVENT_TABLE = "CREATE TABLE " + TABLE_EVENT_DATA + "("
-            + COLUMN_EVENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_EVENT_NAME + " TEXT,"
-            + COLUMN_EVENT_DATE + " TEXT," + COLUMN_EVENT_MONTH + " TEXT," + COLUMN_EVENT_YEAR +
-            " TEXT," + COLUMN_EVENT_IS_DONE + " INTEGER," + COLUMN_EVENT_GOAL + " INTEGER" + ")";
+            + COLUMN_EVENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_EVENT_DATE + " TEXT,"
+            + COLUMN_EVENT_DISTANCE + " TEXT," + COLUMN_EVENT_PROFILE + " TEXT" + ")";
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

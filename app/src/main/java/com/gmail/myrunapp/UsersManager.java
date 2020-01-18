@@ -3,6 +3,7 @@ package com.gmail.myrunapp;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class UsersManager {
                 user.setEmail(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_EMAIL)));
                 user.setPassword(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_PASSWORD)));
                 userList.add(user);
+
             } while (cursor.moveToNext());
         }
         cursor.close();
