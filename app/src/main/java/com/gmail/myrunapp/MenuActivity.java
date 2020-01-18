@@ -30,7 +30,6 @@ import java.util.Locale;
 public class MenuActivity extends AppCompatActivity {
 
     ImageButton nextButton, previousButton;
-    Button set, confirm, add;
     TextView currentDate, goal, distance;
     GridView gridView;
     Toolbar actionBar;
@@ -38,13 +37,15 @@ public class MenuActivity extends AppCompatActivity {
     AlertDialog addDialog;
 
     DbHelper dbHelper;
+    EventsManager eventsManager;
     GridAdapter adapter;
 
     String profile;
 
     public Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
+    SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
+    SimpleDateFormat dateFormatDay = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
 
     private List<Date> dates = new ArrayList<>();
     private List<EventData> events = new ArrayList<>();
@@ -60,6 +61,7 @@ public class MenuActivity extends AppCompatActivity {
         profile = intent.getStringExtra("eMail");
 
         dbHelper = new DbHelper(this);
+        eventsManager = new EventsManager(dbHelper, profile);
 
         currentDate = findViewById(R.id.textViewDateM);
         nextButton = findViewById(R.id.monthRightM);
@@ -74,7 +76,7 @@ public class MenuActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
-        currentDate.setText(dateFormat.format(calendar.getTime()));
+        currentDate.setText(dateFormatMonth.format(calendar.getTime()));
 
         initializeDates();
         adapter = new GridAdapter(this, dates, calendar);
@@ -94,7 +96,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public void nextMonth(View view){
         calendar.add(Calendar.MONTH, 1);
-        currentDate.setText(dateFormat.format(calendar.getTime()));
+        currentDate.setText(dateFormatMonth.format(calendar.getTime()));
         initializeDates();
         adapter = new GridAdapter(this, dates, calendar);
         gridView.setAdapter(adapter);
@@ -102,7 +104,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public void previousMonth(View view){
         calendar.add(Calendar.MONTH, -1);
-        currentDate.setText(dateFormat.format(calendar.getTime()));
+        currentDate.setText(dateFormatMonth.format(calendar.getTime()));
         initializeDates();
         adapter = new GridAdapter(this, dates, calendar);
         gridView.setAdapter(adapter);
@@ -140,7 +142,7 @@ public class MenuActivity extends AppCompatActivity {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.addRunM: {
-                    showDialog();
+                    showAddDialog();
                     mode.finish();
                     return true;
                 }
@@ -166,7 +168,7 @@ public class MenuActivity extends AppCompatActivity {
         }
     };
 
-    public void showDialog() {
+    public void showAddDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final CharSequence[] events = {"Set run", "Confirm run"};
         builder.setTitle("Chose activity").setItems(events, new DialogInterface.OnClickListener() {
@@ -174,7 +176,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0: {
-                        Toast.makeText(MenuActivity.this, "Set run", Toast.LENGTH_SHORT).show();
+                        showDistanceDialog();
                         break;
                     }
                     case 1: {
@@ -184,6 +186,25 @@ public class MenuActivity extends AppCompatActivity {
                 }
             }
         });
+        addDialog = builder.create();
+        addDialog.show();
+    }
+
+    public void showDistanceDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Do not specify a distance, if you just want to schedule run")
+                .setView(R.layout.layout_dialog_distance).setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
         addDialog = builder.create();
         addDialog.show();
     }

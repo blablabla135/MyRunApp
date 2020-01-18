@@ -29,7 +29,7 @@
         android:hint="@string/userName"
         android:textColor="@color/colorTextBlue"
         android:textColorHint="@color/colorHintGrey"
-        android:textAlignment="center"/>
+        />
 
       <EditText
         android:id="@+id/editTextEMailR"
@@ -42,8 +42,7 @@
         android:inputType="textEmailAddress"
         android:hint="@string/eMail"
         android:textColor="@color/colorTextBlue"
-        android:textColorHint="@color/colorHintGrey"
-        android:textAlignment="center"/>
+        android:textColorHint="@color/colorHintGrey"/>
 
         <EditText
         android:id="@+id/editTextPasswordR"
@@ -56,8 +55,7 @@
         android:inputType="textPassword"
         android:hint="@string/password"
         android:textColor="@color/colorTextBlue"
-        android:textColorHint="@color/colorHintGrey"
-        android:textAlignment="center"/>
+        android:textColorHint="@color/colorHintGrey"/>
 
         <EditText
         android:id="@+id/editTextPasswordConfirmR"
@@ -70,8 +68,7 @@
         android:inputType="textPassword"
         android:hint="@string/confirmPassword"
         android:textColor="@color/colorTextBlue"
-        android:textColorHint="@color/colorHintGrey"
-        android:textAlignment="center"/>
+        android:textColorHint="@color/colorHintGrey"/>
 
     </LinearLayout>
 

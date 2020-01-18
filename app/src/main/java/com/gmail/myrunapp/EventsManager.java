@@ -50,7 +50,7 @@ public class EventsManager {
         return eventList;
     }
 
-    public void addUser(EventData event) {
+    public void addEvent(EventData event) {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
