@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ import java.util.Locale;
 public class MenuActivity extends AppCompatActivity {
 
     ImageButton nextButton, previousButton;
-    TextView currentDate, goal, distance;
+    TextView currentDate;
     GridView gridView;
     Toolbar actionBar;
     ActionMode mActionMode;
@@ -41,6 +42,7 @@ public class MenuActivity extends AppCompatActivity {
     GridAdapter adapter;
 
     String profile;
+    String dateForDB;
 
     public Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
 
@@ -67,10 +69,9 @@ public class MenuActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.monthRightM);
         previousButton = findViewById(R.id.monthLeftM);
         gridView = findViewById(R.id.gridViewM);
-        goal = findViewById(R.id.textViewCountdownM);
         actionBar = findViewById(R.id.actionBarM);
 
-        goal.setText(profile);
+
 
         setSupportActionBar(actionBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -85,6 +86,7 @@ public class MenuActivity extends AppCompatActivity {
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                dateForDB = dateFormatDay.format(gridView.getItemAtPosition(position));
                 if (mActionMode != null) {
                     return false;
                 }
@@ -196,7 +198,12 @@ public class MenuActivity extends AppCompatActivity {
                 .setView(R.layout.layout_dialog_distance).setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        EditText dialogDistance = findViewById(R.id.editTextDistance);
+                        String distance = dialogDistance.getText().toString().trim();
+                        EventData event = new EventData();
+                        event.setDate(dateForDB);
+                        event.setDistance(distance);
+                        eventsManager.addEvent(event);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
