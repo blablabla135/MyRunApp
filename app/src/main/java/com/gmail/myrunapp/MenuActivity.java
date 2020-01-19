@@ -39,6 +39,7 @@ public class MenuActivity extends AppCompatActivity {
     AlertDialog addDialog;
 
     DbHelper dbHelper;
+    UsersManager usersManager;
     EventsManager eventsManager;
     GridAdapter adapter;
 
@@ -65,6 +66,7 @@ public class MenuActivity extends AppCompatActivity {
 
         dbHelper = new DbHelper(this);
         eventsManager = new EventsManager(dbHelper, profile);
+        usersManager = new UsersManager(dbHelper);
 
         currentDate = findViewById(R.id.textViewDateM);
         nextButton = findViewById(R.id.monthRightM);
@@ -81,7 +83,7 @@ public class MenuActivity extends AppCompatActivity {
         currentDate.setText(dateFormatMonth.format(calendar.getTime()));
 
         initializeDates();
-        adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar);
+        adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
         gridView.setAdapter(adapter);
 
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -101,7 +103,7 @@ public class MenuActivity extends AppCompatActivity {
         calendar.add(Calendar.MONTH, 1);
         currentDate.setText(dateFormatMonth.format(calendar.getTime()));
         initializeDates();
-        adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar);
+        adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
         gridView.setAdapter(adapter);
     }
 
@@ -109,7 +111,7 @@ public class MenuActivity extends AppCompatActivity {
         calendar.add(Calendar.MONTH, -1);
         currentDate.setText(dateFormatMonth.format(calendar.getTime()));
         initializeDates();
-        adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar);
+        adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
         gridView.setAdapter(adapter);
     }
 
@@ -153,7 +155,7 @@ public class MenuActivity extends AppCompatActivity {
                     EventData event = new EventData();
                     event.setDate(dateForDB);
                     eventsManager.deleteEvent(event);
-                    adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar);
+                    adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
                     gridView.setAdapter(adapter);
                     mode.finish();
                     return true;
@@ -210,7 +212,7 @@ public class MenuActivity extends AppCompatActivity {
                         event.setDate(dateForDB);
                         event.setDistance(distance);
                         eventsManager.addEvent(event);
-                        adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar);
+                        adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
                         gridView.setAdapter(adapter);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -236,7 +238,7 @@ public class MenuActivity extends AppCompatActivity {
                         event.setDate(dateForDB);
                         event.setDistance(distance);
                         eventsManager.updateEvent(event);
-                        adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar);
+                        adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
                         gridView.setAdapter(adapter);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

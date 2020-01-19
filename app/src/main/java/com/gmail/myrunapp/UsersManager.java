@@ -65,4 +65,44 @@ public class UsersManager {
         db.insert(DbHelper.TABLE_USER_DATA, null, values);
         db.close();
     }
+
+    public UserData getUser(String userName){
+
+        String[] selectionArg = {userName};
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        String selection = DbHelper.COLUMN_USER_EMAIL + " = ?";
+
+        String[] columns = {
+                DbHelper.COLUMN_USER_ID,
+                DbHelper.COLUMN_USER_EMAIL,
+                DbHelper.COLUMN_USER_NAME,
+                DbHelper.COLUMN_USER_PASSWORD,
+                DbHelper.COLUMN_USER_FIRST_RAN,
+                DbHelper.COLUMN_USER_MAIN_EVENT
+        };
+
+        Cursor cursor = db.query(DbHelper.TABLE_USER_DATA, columns, selection, selectionArg, null, null, null, null);
+
+        UserData user = new UserData();
+
+        if (cursor.moveToFirst()) {
+            do {
+                user.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_ID))));
+                user.setName(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_NAME)));
+                user.setEmail(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_EMAIL)));
+                user.setPassword(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_PASSWORD)));
+                user.setFirstRan(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_FIRST_RAN)));
+                user.setMainEvent(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_MAIN_EVENT)));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return user;
+    }
+
+
+
 }

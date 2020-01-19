@@ -20,14 +20,16 @@ public class GridAdapter extends BaseAdapter {
     private List<EventData> events;
     private Context context;
     private Calendar calendar;
+    private UserData user;
 
     SimpleDateFormat dateFormatDay = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
 
-    public GridAdapter(Context context, List<Date> dates, List<EventData> events, Calendar calendar) {
+    public GridAdapter(Context context, List<Date> dates, List<EventData> events, Calendar calendar, UserData user) {
         this.dates = dates;
         this.context = context;
         this.calendar = calendar;
         this.events = events;
+        this.user = user;
     }
 
     @Override
@@ -77,6 +79,18 @@ public class GridAdapter extends BaseAdapter {
         TextView dayNo = convertView.findViewById(R.id.calendarDayG);
         TextView distance = convertView.findViewById(R.id.eventG);
         dayNo.setText(String.valueOf(dayNumber));
+
+        if (eventSetting(dates.get(position), user.getFirstRan())) {
+            convertView.setBackgroundResource(R.drawable.shape_grid_cell_red);
+            distance.setText(R.string.firstRan);
+        }
+
+        if (eventSetting(dates.get(position), user.getMainEvent())) {
+            convertView.setBackgroundResource(R.drawable.shape_grid_cell_red);
+            distance.setText(R.string.mainEvent);
+        }
+
+
 
         if (comparison(dates.get(position), events) != null) {
             if (comparison(dates.get(position), events).getDistance().equals("")) {
@@ -138,8 +152,31 @@ public class GridAdapter extends BaseAdapter {
             }
         }
         return distance;
+    }
+
+    public boolean eventSetting(Date date, String stringDate) {
+
+        try {
+            Date eventDate = dateFormatDay.parse(stringDate);
+
+            Calendar eventCalendar = Calendar.getInstance();
+            eventCalendar.setTime(eventDate);
+            Calendar currentCalendar = Calendar.getInstance();
+            currentCalendar.setTime(date);
+
+            if ((eventCalendar.get(Calendar.DAY_OF_MONTH) == currentCalendar.get(Calendar.DAY_OF_MONTH)) &&
+                    (eventCalendar.get(Calendar.MONTH) == currentCalendar.get(Calendar.MONTH)) &&
+                    (eventCalendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR))) {
+                return true;
+            }
 
 
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return false;
     }
 
 }
