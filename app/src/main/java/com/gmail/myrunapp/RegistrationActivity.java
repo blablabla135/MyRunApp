@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,6 +26,11 @@ public class RegistrationActivity extends AppCompatActivity {
     private List<UserData> userList;
     private Button firstRan, mainEvent;
     private String firstRanDate, mainEventDate;
+
+    SimpleDateFormat dateFormatDay = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+
+    Calendar calendarForDB = Calendar.getInstance();
+    Date dateForDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +63,15 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toast.makeText(this, "this eMale is already taken", Toast.LENGTH_SHORT).show();
             } else if (!password.getText().toString().trim().equals(confirmPassword.getText().toString().trim())) {
                 Toast.makeText(this, "confirm password", Toast.LENGTH_SHORT).show();
+            } else if (firstRanDate == null || mainEventDate == null) {
+                Toast.makeText(this, "set dates", Toast.LENGTH_SHORT).show();
             } else {
                 UserData user = new UserData();
                 user.setEmail(eMail.getText().toString().trim());
                 user.setName(name.getText().toString().trim());
                 user.setPassword(password.getText().toString().trim());
+                user.setFirstRan(firstRanDate);
+                user.setMainEvent(mainEventDate);
 
                 usersManager.addUser(user);
 
@@ -81,7 +91,9 @@ public class RegistrationActivity extends AppCompatActivity {
         DatePickerDialog datePicker = new DatePickerDialog(RegistrationActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                firstRanDate = dayOfMonth + " " + (month + 1) + " " + year;
+                calendarForDB.set(year, month, dayOfMonth);
+                dateForDB = calendarForDB.getTime();
+                firstRanDate = dateFormatDay.format(dateForDB);
                 firstRan.setText(firstRanDate);
             }
         }, year, month, day);
@@ -96,7 +108,9 @@ public class RegistrationActivity extends AppCompatActivity {
         DatePickerDialog datePicker = new DatePickerDialog(RegistrationActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                mainEventDate = dayOfMonth + " " + (month + 1) + " " + year;
+                calendarForDB.set(year, month, dayOfMonth);
+                dateForDB = calendarForDB.getTime();
+                mainEventDate = dateFormatDay.format(dateForDB);
                 mainEvent.setText(mainEventDate);
             }
         }, year, month, day);

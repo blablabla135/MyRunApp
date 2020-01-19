@@ -26,7 +26,9 @@ public class UsersManager {
                 DbHelper.COLUMN_USER_ID,
                 DbHelper.COLUMN_USER_EMAIL,
                 DbHelper.COLUMN_USER_NAME,
-                DbHelper.COLUMN_USER_PASSWORD
+                DbHelper.COLUMN_USER_PASSWORD,
+                DbHelper.COLUMN_USER_FIRST_RAN,
+                DbHelper.COLUMN_USER_MAIN_EVENT
         };
 
         Cursor cursor = db.query(DbHelper.TABLE_USER_DATA, columns, null, null, null, null, null, null);
@@ -38,8 +40,9 @@ public class UsersManager {
                 user.setName(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_NAME)));
                 user.setEmail(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_EMAIL)));
                 user.setPassword(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_PASSWORD)));
+                user.setFirstRan(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_FIRST_RAN)));
+                user.setMainEvent(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_MAIN_EVENT)));
                 userList.add(user);
-
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -56,6 +59,8 @@ public class UsersManager {
         values.put(DbHelper.COLUMN_USER_NAME, user.getName());
         values.put(DbHelper.COLUMN_USER_EMAIL, user.getEmail());
         values.put(DbHelper.COLUMN_USER_PASSWORD, user.getPassword());
+        values.put(DbHelper.COLUMN_USER_FIRST_RAN, user.getFirstRan());
+        values.put(DbHelper.COLUMN_USER_MAIN_EVENT, user.getMainEvent());
 
         db.insert(DbHelper.TABLE_USER_DATA, null, values);
         db.close();

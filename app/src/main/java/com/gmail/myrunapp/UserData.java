@@ -6,6 +6,8 @@ public class UserData {
     private String name;
     private String email;
     private String password;
+    private String firstRan;
+    private String MainEvent;
 
     public int getId() {
         return id;
@@ -37,6 +39,22 @@ public class UserData {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFirstRan() {
+        return firstRan;
+    }
+
+    public void setFirstRan(String firstRan) {
+        this.firstRan = firstRan;
+    }
+
+    public String getMainEvent() {
+        return MainEvent;
+    }
+
+    public void setMainEvent(String mainEvent) {
+        MainEvent = mainEvent;
     }
 
 }
