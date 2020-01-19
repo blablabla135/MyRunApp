@@ -3,7 +3,6 @@ package com.gmail.myrunapp;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,16 +10,17 @@ import java.util.List;
 public class EventsManager {
 
     private DbHelper dbHelper;
-    private String[] selectionArg = new String[1];
+
     private String userName;
 
     public EventsManager(DbHelper dbHelper, String userName) {
         this.dbHelper = dbHelper;
-        this.selectionArg[0] = userName;
         this.userName = userName;
     }
 
     public List<EventData> getEvents(){
+
+        String[] selectionArg = {userName};
 
         List<EventData> eventList = new ArrayList<>();
 
@@ -44,12 +44,6 @@ public class EventsManager {
                 event.setDate(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_EVENT_DATE)));
                 event.setDistance(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_EVENT_DISTANCE)));
                 eventList.add(event);
-                final String LOG_TAG = "myLogs";
-                Log.d(LOG_TAG, "--- onCreate database ---");
-                Log.d(LOG_TAG,
-                        "ID = " + event.getId() +
-                                ", date = " + event.getDate() +
-                                ", distance = " + event.getDistance());
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -68,6 +62,33 @@ public class EventsManager {
         values.put(DbHelper.COLUMN_EVENT_PROFILE, userName);
 
         db.insert(DbHelper.TABLE_EVENT_DATA, null, values);
+        db.close();
+    }
+
+    public void updateEvent(EventData event) {
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        String selection = DbHelper.COLUMN_EVENT_PROFILE + " = ? AND " + DbHelper.COLUMN_EVENT_DATE + " = ?";
+        String[] selectionArg = {userName, event.getDate()};
+
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.COLUMN_EVENT_DATE, event.getDate());
+        values.put(DbHelper.COLUMN_EVENT_DISTANCE, event.getDistance());
+        values.put(DbHelper.COLUMN_EVENT_PROFILE, userName);
+
+        db.update(DbHelper.TABLE_EVENT_DATA, values, selection, selectionArg);
+        db.close();
+    }
+
+    public void deleteEvent(EventData event) {
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        String selection = DbHelper.COLUMN_EVENT_PROFILE + " = ? AND " + DbHelper.COLUMN_EVENT_DATE + " = ?";
+        String[] selectionArg = {userName, event.getDate()};
+
+        db.delete(DbHelper.TABLE_EVENT_DATA, selection, selectionArg);
         db.close();
     }
 

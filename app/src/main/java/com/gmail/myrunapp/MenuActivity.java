@@ -150,12 +150,16 @@ public class MenuActivity extends AppCompatActivity {
                     return true;
                 }
                 case R.id.deleteRunM: {
-                    Toast.makeText(MenuActivity.this, "dell", Toast.LENGTH_SHORT).show();
+                    EventData event = new EventData();
+                    event.setDate(dateForDB);
+                    eventsManager.deleteEvent(event);
+                    adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar);
+                    gridView.setAdapter(adapter);
                     mode.finish();
                     return true;
                 }
                 case R.id.editRunM: {
-                    Toast.makeText(MenuActivity.this, "edit", Toast.LENGTH_SHORT).show();
+                    showConfirmDistanceDialog();
                     mode.finish();
                     return true;
                 }
@@ -179,11 +183,11 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0: {
-                        showDistanceDialog();
+                        showSetDistanceDialog();
                         break;
                     }
                     case 1: {
-                        Toast.makeText(MenuActivity.this, "Confirm run", Toast.LENGTH_SHORT).show();
+                        showConfirmDistanceDialog();
                         break;
                     }
                 }
@@ -193,15 +197,14 @@ public class MenuActivity extends AppCompatActivity {
         addDialog.show();
     }
 
-    public void showDistanceDialog() {
+    public void showSetDistanceDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText dialogDistance = new EditText(MenuActivity.this);
-        builder.setTitle("Do not specify a distance, if you just want to schedule run").
+        builder.setTitle("Do not specify distance, if you just want to schedule run").
                 setView(dialogDistance).
                 setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         String distance = dialogDistance.getText().toString().trim();
                         EventData event = new EventData();
                         event.setDate(dateForDB);
@@ -216,10 +219,33 @@ public class MenuActivity extends AppCompatActivity {
 
             }
         });
-
         addDialog = builder.create();
         addDialog.show();
     }
 
+    public void showConfirmDistanceDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final EditText dialogDistance = new EditText(MenuActivity.this);
+        builder.setTitle("Specify distance").
+                setView(dialogDistance).
+                setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String distance = dialogDistance.getText().toString().trim();
+                        EventData event = new EventData();
+                        event.setDate(dateForDB);
+                        event.setDistance(distance);
+                        eventsManager.updateEvent(event);
+                        adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar);
+                        gridView.setAdapter(adapter);
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
+            }
+        });
+        addDialog = builder.create();
+        addDialog.show();
+    }
 }
