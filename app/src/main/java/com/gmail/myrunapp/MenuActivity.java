@@ -42,6 +42,7 @@ public class MenuActivity extends AppCompatActivity {
     UsersManager usersManager;
     EventsManager eventsManager;
     GridAdapter adapter;
+    DistanceCalculator distanceCalculator;
 
     String profile;
     String dateForDB;
@@ -67,14 +68,14 @@ public class MenuActivity extends AppCompatActivity {
         dbHelper = new DbHelper(this);
         eventsManager = new EventsManager(dbHelper, profile);
         usersManager = new UsersManager(dbHelper);
+        distanceCalculator = new DistanceCalculator(eventsManager.getEvents(), usersManager.getUser(profile).getFirstRan(),
+                usersManager.getUser(profile).getMainEvent());
 
         currentDate = findViewById(R.id.textViewDateM);
         nextButton = findViewById(R.id.monthRightM);
         previousButton = findViewById(R.id.monthLeftM);
         gridView = findViewById(R.id.gridViewM);
         actionBar = findViewById(R.id.actionBarM);
-
-
 
         setSupportActionBar(actionBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -96,7 +97,8 @@ public class MenuActivity extends AppCompatActivity {
                 mActionMode = startSupportActionMode(mActionModeCallback);
                 return true;
             }
-        });
+        })
+        ;
     }
 
     public void nextMonth(View view){
