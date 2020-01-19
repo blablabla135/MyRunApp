@@ -15,5 +15,7 @@
     <string name="thu">Thu</string>
     <string name="fri">Fri</string>
     <string name="sat">Sat</string>
+    <string name="mainEvent">Main event</string>
+    <string name="firstRan">First ran</string>
 </resources>
 
