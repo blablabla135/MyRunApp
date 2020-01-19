@@ -3,6 +3,7 @@ package com.gmail.myrunapp;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +12,12 @@ public class EventsManager {
 
     private DbHelper dbHelper;
     private String[] selectionArg = new String[1];
+    private String userName;
 
     public EventsManager(DbHelper dbHelper, String userName) {
         this.dbHelper = dbHelper;
         this.selectionArg[0] = userName;
+        this.userName = userName;
     }
 
     public List<EventData> getEvents(){
@@ -41,7 +44,12 @@ public class EventsManager {
                 event.setDate(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_EVENT_DATE)));
                 event.setDistance(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_EVENT_DISTANCE)));
                 eventList.add(event);
-
+                final String LOG_TAG = "myLogs";
+                Log.d(LOG_TAG, "--- onCreate database ---");
+                Log.d(LOG_TAG,
+                        "ID = " + event.getId() +
+                                ", date = " + event.getDate() +
+                                ", distance = " + event.getDistance());
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -57,6 +65,7 @@ public class EventsManager {
         ContentValues values = new ContentValues();
         values.put(DbHelper.COLUMN_EVENT_DATE, event.getDate());
         values.put(DbHelper.COLUMN_EVENT_DISTANCE, event.getDistance());
+        values.put(DbHelper.COLUMN_EVENT_PROFILE, userName);
 
         db.insert(DbHelper.TABLE_EVENT_DATA, null, values);
         db.close();

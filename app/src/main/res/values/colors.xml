@@ -7,7 +7,9 @@
 
     <color name="colorBackgroundLight">#fafafa</color>
     <color name="colorBackgroundGrey">#bebebe</color>
+    <color name="colorBackgroundGreen">#8FE298</color>
     <color name="colorBackgroundBlue">#3f51b5</color>
+    <color name="colorBackgroundYellow">#e1ff7b</color>
     <color name="colorBackgroundHighlightedBlue">#9ec8ec</color>
 
     <color name="colorTextGrey">#747474</color>
@@ -20,3 +22,5 @@
     <color name="colorStrokeGrey">#747474</color>
 
 </resources>
+
+

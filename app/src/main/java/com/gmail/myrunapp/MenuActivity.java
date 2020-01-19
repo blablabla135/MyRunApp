@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,7 +81,7 @@ public class MenuActivity extends AppCompatActivity {
         currentDate.setText(dateFormatMonth.format(calendar.getTime()));
 
         initializeDates();
-        adapter = new GridAdapter(this, dates, calendar);
+        adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar);
         gridView.setAdapter(adapter);
 
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -100,7 +101,7 @@ public class MenuActivity extends AppCompatActivity {
         calendar.add(Calendar.MONTH, 1);
         currentDate.setText(dateFormatMonth.format(calendar.getTime()));
         initializeDates();
-        adapter = new GridAdapter(this, dates, calendar);
+        adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar);
         gridView.setAdapter(adapter);
     }
 
@@ -108,7 +109,7 @@ public class MenuActivity extends AppCompatActivity {
         calendar.add(Calendar.MONTH, -1);
         currentDate.setText(dateFormatMonth.format(calendar.getTime()));
         initializeDates();
-        adapter = new GridAdapter(this, dates, calendar);
+        adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar);
         gridView.setAdapter(adapter);
     }
 
@@ -194,16 +195,20 @@ public class MenuActivity extends AppCompatActivity {
 
     public void showDistanceDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Do not specify a distance, if you just want to schedule run")
-                .setView(R.layout.layout_dialog_distance).setPositiveButton("Add", new DialogInterface.OnClickListener() {
+        final EditText dialogDistance = new EditText(MenuActivity.this);
+        builder.setTitle("Do not specify a distance, if you just want to schedule run").
+                setView(dialogDistance).
+                setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText dialogDistance = findViewById(R.id.editTextDistance);
+
                         String distance = dialogDistance.getText().toString().trim();
                         EventData event = new EventData();
                         event.setDate(dateForDB);
                         event.setDistance(distance);
                         eventsManager.addEvent(event);
+                        adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar);
+                        gridView.setAdapter(adapter);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
