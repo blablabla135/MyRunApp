@@ -172,6 +172,8 @@ public class MenuActivity extends AppCompatActivity {
                 default:
                     return false;
             }
+
+
         }
 
         @Override
@@ -211,13 +213,15 @@ public class MenuActivity extends AppCompatActivity {
                 setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String distance = dialogDistance.getText().toString().trim();
+                        String distanceString = dialogDistance.getText().toString().trim();
                         EventData event = new EventData();
                         event.setDate(dateForDB);
-                        event.setDistance(distance);
+                        event.setDistance(distanceString);
                         eventsManager.addEvent(event);
                         adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
-                        gridView.setAdapter(adapter);
+                        gridView.setAdapter(adapter);                        distanceCalculator = new DistanceCalculator(eventsManager.getEvents(), usersManager.getUser(profile).getFirstRan(),
+                                usersManager.getUser(profile).getMainEvent());
+                        distance.setText(distanceCalculator.getDistanceByWeek());
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -237,10 +241,10 @@ public class MenuActivity extends AppCompatActivity {
                 setPositiveButton("Set", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String distance = dialogDistance.getText().toString().trim();
+                        String distanceString = dialogDistance.getText().toString().trim();
                         EventData event = new EventData();
                         event.setDate(dateForDB);
-                        event.setDistance(distance);
+                        event.setDistance(distanceString);
                         eventsManager.updateEvent(event);
                         adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
                         gridView.setAdapter(adapter);
