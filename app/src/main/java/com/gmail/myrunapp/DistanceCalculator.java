@@ -1,5 +1,7 @@
 package com.gmail.myrunapp;
 
+import android.content.Intent;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,14 +37,69 @@ public class DistanceCalculator {
 
     public String getDistanceByMonth() {
         String distanceString = "";
+        double distance = 0.00;
 
         initDates();
 
-        
+        for (EventData event: events) {
 
+            try {
+                Date eventDate = dateFormat.parse(event.getDate());
 
+                Calendar currentCalendar = Calendar.getInstance();
+                Date currentDate = currentCalendar.getTime();
 
+                Calendar dateEvent = Calendar.getInstance();
+                dateEvent.setTime(eventDate);
+                Calendar dateCurrent = Calendar.getInstance();
+                dateCurrent.setTime(currentDate);
 
+                if ((dateEvent.get(Calendar.MONTH) == dateCurrent.get(Calendar.MONTH)) &&
+                        (dateEvent.get(Calendar.YEAR) == dateCurrent.get(Calendar.YEAR)) && !event.getDistance().equals("")) {
+                    distance = distance + Double.parseDouble(event.getDistance());
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        distanceString = distance + "km";
+
+        return distanceString;
+    }
+
+    public String getDistanceByWeek() {
+        String distanceString = "";
+        double distance = 0.00;
+
+        initDates();
+
+        for (EventData event: events) {
+
+            try {
+                Date eventDate = dateFormat.parse(event.getDate());
+
+                Calendar currentCalendar = Calendar.getInstance();
+                Date currentDate = currentCalendar.getTime();
+
+                Calendar dateEvent = Calendar.getInstance();
+                dateEvent.setFirstDayOfWeek(Calendar.MONDAY);
+                dateEvent.setTime(eventDate);
+                Calendar dateCurrent = Calendar.getInstance();
+                dateCurrent.setFirstDayOfWeek(Calendar.MONDAY);
+                dateCurrent.setTime(currentDate);
+
+                if ((dateEvent.get(Calendar.WEEK_OF_YEAR) == dateCurrent.get(Calendar.WEEK_OF_YEAR)) &&
+                        (dateEvent.get(Calendar.MONTH) == dateCurrent.get(Calendar.MONTH)) &&
+                        (dateEvent.get(Calendar.YEAR) == dateCurrent.get(Calendar.YEAR)) && !event.getDistance().equals("")) {
+                    distance = distance + Double.parseDouble(event.getDistance());
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        distanceString = distance + "km";
 
         return distanceString;
     }

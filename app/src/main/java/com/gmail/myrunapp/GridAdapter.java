@@ -72,7 +72,7 @@ public class GridAdapter extends BaseAdapter {
             convertView.setBackgroundResource(R.drawable.shape_grid_cell_dark);
         }
 
-        if ((highlightCalendar.get(Calendar.DAY_OF_MONTH) == dateCalendar.get(Calendar.DAY_OF_MONTH)) && (highlightCalendar.get(Calendar.MONTH) == dateCalendar.get(Calendar.MONTH)) && (highlightCalendar.get(Calendar.DAY_OF_MONTH) == dateCalendar.get(Calendar.DAY_OF_MONTH))) {
+        if ((highlightCalendar.get(Calendar.DAY_OF_MONTH) == dateCalendar.get(Calendar.DAY_OF_MONTH)) && (highlightCalendar.get(Calendar.MONTH) == dateCalendar.get(Calendar.MONTH)) && (highlightCalendar.get(Calendar.YEAR) == dateCalendar.get(Calendar.YEAR))) {
             convertView.setBackgroundResource(R.drawable.shape_grid_cell_highlighted);
         }
 

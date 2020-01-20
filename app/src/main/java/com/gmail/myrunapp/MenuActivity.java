@@ -32,7 +32,7 @@ import java.util.Locale;
 public class MenuActivity extends AppCompatActivity {
 
     ImageButton nextButton, previousButton;
-    TextView currentDate;
+    TextView currentDate, distance;
     GridView gridView;
     Toolbar actionBar;
     ActionMode mActionMode;
@@ -76,6 +76,7 @@ public class MenuActivity extends AppCompatActivity {
         previousButton = findViewById(R.id.monthLeftM);
         gridView = findViewById(R.id.gridViewM);
         actionBar = findViewById(R.id.actionBarM);
+        distance = findViewById(R.id.textViewDistanceM);
 
         setSupportActionBar(actionBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -87,6 +88,8 @@ public class MenuActivity extends AppCompatActivity {
         adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
         gridView.setAdapter(adapter);
 
+        distance.setText(distanceCalculator.getDistanceByWeek());
+
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -97,8 +100,7 @@ public class MenuActivity extends AppCompatActivity {
                 mActionMode = startSupportActionMode(mActionModeCallback);
                 return true;
             }
-        })
-        ;
+        });
     }
 
     public void nextMonth(View view){
