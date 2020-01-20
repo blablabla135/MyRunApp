@@ -1,10 +1,7 @@
 package com.gmail.myrunapp;
 
-import android.content.Intent;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;

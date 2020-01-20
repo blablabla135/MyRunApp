@@ -99,6 +99,7 @@ public class MenuActivity extends AppCompatActivity {
                     return false;
                 }
                 mActionMode = startSupportActionMode(mActionModeCallback);
+                mActionMode.setTitle("Edit events:");
                 return true;
             }
         });
