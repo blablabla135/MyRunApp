@@ -32,7 +32,7 @@ import java.util.Locale;
 public class MenuActivity extends AppCompatActivity {
 
     ImageButton nextButton, previousButton;
-    TextView currentDate, distance;
+    TextView currentDate, distance, timeLeft;
     GridView gridView;
     Toolbar actionBar;
     ActionMode mActionMode;
@@ -53,7 +53,6 @@ public class MenuActivity extends AppCompatActivity {
     SimpleDateFormat dateFormatDay = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
 
     private List<Date> dates = new ArrayList<>();
-    private List<EventData> events = new ArrayList<>();
 
     private static final int MAX_DAYS = 42;
 
@@ -77,18 +76,20 @@ public class MenuActivity extends AppCompatActivity {
         gridView = findViewById(R.id.gridViewM);
         actionBar = findViewById(R.id.actionBarM);
         distance = findViewById(R.id.textViewDistanceM);
+        timeLeft = findViewById(R.id.textViewCountdownM);
 
         setSupportActionBar(actionBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         currentDate.setText(dateFormatMonth.format(calendar.getTime()));
+        timeLeft.setText(distanceCalculator.getDaysLeft());
 
         initializeDates();
         adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
         gridView.setAdapter(adapter);
 
-        distance.setText(distanceCalculator.getDistanceByWeek());
+        distance.setText(distanceCalculator.getDistanceByPeriod());
 
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -221,7 +222,7 @@ public class MenuActivity extends AppCompatActivity {
                         adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
                         gridView.setAdapter(adapter);                        distanceCalculator = new DistanceCalculator(eventsManager.getEvents(), usersManager.getUser(profile).getFirstRan(),
                                 usersManager.getUser(profile).getMainEvent());
-                        distance.setText(distanceCalculator.getDistanceByWeek());
+                        distance.setText(distanceCalculator.getDistanceByPeriod());
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
