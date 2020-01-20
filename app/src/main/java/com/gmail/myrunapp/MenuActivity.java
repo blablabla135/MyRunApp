@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
@@ -80,6 +81,7 @@ public class MenuActivity extends AppCompatActivity {
 
         setSupportActionBar(actionBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
 
         currentDate.setText(dateFormatMonth.format(calendar.getTime()));
@@ -259,5 +261,16 @@ public class MenuActivity extends AppCompatActivity {
         });
         addDialog = builder.create();
         addDialog.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }

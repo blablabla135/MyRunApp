@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/addProfileSettingsM"
+        android:title="@string/profile_settings"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/weekM"
+        android:title="@string/week"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/monthM"
+        android:title="@string/month"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/periodM"
+        android:title="@string/period"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/logOutM"
+        android:title="@string/log_out"
+        app:showAsAction="never"/>
+
+
+</menu>

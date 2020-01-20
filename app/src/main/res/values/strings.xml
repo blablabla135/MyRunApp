@@ -17,5 +17,10 @@
     <string name="sat">Sat</string>
     <string name="mainEvent">Main event</string>
     <string name="firstRan">First ran</string>
+    <string name="profile_settings">Profile settings</string>
+    <string name="log_out">Log out</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="period">Period</string>
 </resources>
 
