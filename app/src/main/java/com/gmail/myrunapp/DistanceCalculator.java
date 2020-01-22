@@ -114,8 +114,7 @@ public class DistanceCalculator {
         return distanceString;
     }
 
-    public String getDaysLeft() {
-        String daysLeft = "";
+    public long getDaysLeft() {
 
         Calendar currentCalendar = Calendar.getInstance();
         Date currentDate = currentCalendar.getTime();
@@ -131,13 +130,6 @@ public class DistanceCalculator {
         long duration = mainEventDate.getTime() - currentDate.getTime();
         long days = TimeUnit.MILLISECONDS.toDays(duration);
 
-        if (days > 1) {
-            daysLeft = "Until main event left " + days + " days";
-        } else if (days == 1) {
-            daysLeft = "Until main event left " + days + " day";
-        } else {
-            daysLeft = "No time left";
-        }
-        return daysLeft;
+        return days;
     }
 }

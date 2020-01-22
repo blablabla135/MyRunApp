@@ -84,7 +84,7 @@ public class MenuActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         currentDate.setText(dateFormatMonth.format(calendar.getTime()));
-        timeLeft.setText(distanceCalculator.getDaysLeft());
+        timeLeft.setText(daysToMainEvent(distanceCalculator.getDaysLeft()));
 
         initializeDates();
         adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
@@ -303,13 +303,32 @@ public class MenuActivity extends AppCompatActivity {
     public String distanceText(Marker marker) {
         String text = "";
         if (marker == Marker.PERIOD) {
-            text = distanceCalculator.getDistanceByPeriod();
+            text = "Your distance for specified period " + distanceCalculator.getDistanceByPeriod();
         } else if (marker == Marker.MONTH) {
-            text = distanceCalculator.getDistanceByMonth();
+            text = "Your distance for current month " + distanceCalculator.getDistanceByMonth();
         } else if (marker == Marker.WEEK) {
-            text = distanceCalculator.getDistanceByWeek();
+            text = "Your distance for current week " + distanceCalculator.getDistanceByWeek();
         }
         return text;
+    }
+
+    public String daysToMainEvent(Long days) {
+        String daysLeft = "";
+
+        if (usersManager.getUser(profile).getMainEventName().equals("")) {
+            daysLeft = "Main event is not specified";
+        } else if (days > 1) {
+            daysLeft = "Until " + usersManager.getUser(profile).getMainEventName() + " left " +
+                    days + " days";
+        } else if (days == 1) {
+            daysLeft = "Until " + usersManager.getUser(profile).getMainEventName() + " left " +
+                    days + " day";
+        } else {
+            daysLeft = "No time until " + usersManager.getUser(profile).getMainEventName();
+        }
+
+        return daysLeft;
+
     }
 
 

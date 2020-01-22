@@ -92,42 +92,27 @@
     <GridView
         android:id="@+id/gridViewM"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:numColumns="7"
-        android:layout_marginBottom="20dp"
-        android:layout_weight="1"/>
+        android:layout_height="wrap_content"
+        android:numColumns="7"/>
 
-
-
-    <TextView
-        android:id="@+id/textViewPeriodM"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:text="results:"
-        android:textAlignment="center"
-        android:textColor="@color/colorTextGrey"
-        android:textSize="30sp"
-        android:layout_marginBottom="20dp"/>
 
     <TextView
         android:id="@+id/textViewDistanceM"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:text="270 km / 5 min 28 sec"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@color/colorTextGrey"
-        android:textSize="30sp"
-        android:layout_marginBottom="20dp"/>
+        android:textSize="24sp"
+        android:layout_marginTop="20dp"/>
 
     <TextView
         android:id="@+id/textViewCountdownM"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_marginBottom="90dp"
-        android:text="15 days left"
+        android:layout_marginTop="20dp"
         android:textAlignment="center"
         android:textColor="@color/colorTextGrey"
-        android:textSize="30sp"/>
+        android:textSize="24sp"/>
 
     </LinearLayout>
 
