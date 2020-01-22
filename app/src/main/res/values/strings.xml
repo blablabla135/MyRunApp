@@ -2,8 +2,9 @@
     <string name="app_name">Running</string>
     <string name="eMail">Email:</string>
     <string name="password">Password:</string>
-    <string name="confirmPassword">confirm password</string>
-    <string name="userName">user name</string>
+    <string name="confirmPassword">confirm password:</string>
+    <string name="userName">user name:</string>
+    <string name="mainEventName">main event name:</string>
     <string name="signIn">sign in</string>
     <string name="signUp">sign up</string>
     <string name="logo1">Running app</string>

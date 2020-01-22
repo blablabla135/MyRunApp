@@ -28,7 +28,8 @@ public class UsersManager {
                 DbHelper.COLUMN_USER_NAME,
                 DbHelper.COLUMN_USER_PASSWORD,
                 DbHelper.COLUMN_USER_FIRST_RAN,
-                DbHelper.COLUMN_USER_MAIN_EVENT
+                DbHelper.COLUMN_USER_MAIN_EVENT,
+                DbHelper.COLUMN_USER_MAIN_EVENT_NAME
         };
 
         Cursor cursor = db.query(DbHelper.TABLE_USER_DATA, columns, null, null, null, null, null, null);
@@ -42,6 +43,7 @@ public class UsersManager {
                 user.setPassword(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_PASSWORD)));
                 user.setFirstRan(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_FIRST_RAN)));
                 user.setMainEvent(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_MAIN_EVENT)));
+                user.setMainEventName(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_MAIN_EVENT_NAME)));
                 userList.add(user);
             } while (cursor.moveToNext());
         }
@@ -61,6 +63,7 @@ public class UsersManager {
         values.put(DbHelper.COLUMN_USER_PASSWORD, user.getPassword());
         values.put(DbHelper.COLUMN_USER_FIRST_RAN, user.getFirstRan());
         values.put(DbHelper.COLUMN_USER_MAIN_EVENT, user.getMainEvent());
+        values.put(DbHelper.COLUMN_USER_MAIN_EVENT_NAME, user.getMainEventName());
 
         db.insert(DbHelper.TABLE_USER_DATA, null, values);
         db.close();
@@ -80,7 +83,8 @@ public class UsersManager {
                 DbHelper.COLUMN_USER_NAME,
                 DbHelper.COLUMN_USER_PASSWORD,
                 DbHelper.COLUMN_USER_FIRST_RAN,
-                DbHelper.COLUMN_USER_MAIN_EVENT
+                DbHelper.COLUMN_USER_MAIN_EVENT,
+                DbHelper.COLUMN_USER_MAIN_EVENT_NAME
         };
 
         Cursor cursor = db.query(DbHelper.TABLE_USER_DATA, columns, selection, selectionArg, null, null, null, null);
@@ -95,6 +99,7 @@ public class UsersManager {
                 user.setPassword(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_PASSWORD)));
                 user.setFirstRan(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_FIRST_RAN)));
                 user.setMainEvent(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_MAIN_EVENT)));
+                user.setMainEventName(cursor.getString(cursor.getColumnIndex(DbHelper.COLUMN_USER_MAIN_EVENT_NAME)));
             } while (cursor.moveToNext());
         }
         cursor.close();

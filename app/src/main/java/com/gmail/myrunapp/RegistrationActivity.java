@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    private EditText name, eMail, password, confirmPassword;
+    private EditText name, eMail, password, confirmPassword, mainEventName;
     private DbHelper dbHelper;
     private UsersManager usersManager;
     private List<UserData> userList;
@@ -43,6 +43,7 @@ public class RegistrationActivity extends AppCompatActivity {
         confirmPassword = findViewById(R.id.editTextPasswordConfirmR);
         firstRan = findViewById(R.id.buttonFirstRanR);
         mainEvent = findViewById(R.id.buttonMainEventR);
+        mainEventName = findViewById(R.id.editTextMainEventR);
 
         dbHelper = new DbHelper(this);
         usersManager = new UsersManager(dbHelper);
@@ -58,7 +59,9 @@ public class RegistrationActivity extends AppCompatActivity {
             eMales.add(x.getEmail());
         }
 
-        if (!name.getText().toString().trim().equals("") && !eMail.getText().toString().trim().equals("") && !password.getText().toString().trim().equals("") && !confirmPassword.getText().toString().trim().equals("")) {
+        if (!name.getText().toString().trim().equals("") && !eMail.getText().toString().trim().equals("") &&
+                !password.getText().toString().trim().equals("") && !confirmPassword.getText().toString().trim().equals("") &&
+                !mainEventName.getText().toString().trim().equals("")) {
             if (eMales.contains(eMail.getText().toString().trim())) {
                 Toast.makeText(this, "this eMale is already taken", Toast.LENGTH_SHORT).show();
             } else if (!password.getText().toString().trim().equals(confirmPassword.getText().toString().trim())) {
@@ -72,6 +75,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 user.setPassword(password.getText().toString().trim());
                 user.setFirstRan(firstRanDate);
                 user.setMainEvent(mainEventDate);
+                user.setMainEventName(mainEventName.getText().toString().trim());
 
                 usersManager.addUser(user);
 

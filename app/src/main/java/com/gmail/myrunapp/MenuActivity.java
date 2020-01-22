@@ -47,6 +47,7 @@ public class MenuActivity extends AppCompatActivity {
 
     String profile;
     String dateForDB;
+    Marker marker = Marker.PERIOD;
 
     public Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
 
@@ -82,8 +83,6 @@ public class MenuActivity extends AppCompatActivity {
         setSupportActionBar(actionBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
-
         currentDate.setText(dateFormatMonth.format(calendar.getTime()));
         timeLeft.setText(distanceCalculator.getDaysLeft());
 
@@ -91,7 +90,7 @@ public class MenuActivity extends AppCompatActivity {
         adapter = new GridAdapter(this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
         gridView.setAdapter(adapter);
 
-        distance.setText(distanceCalculator.getDistanceByPeriod());
+        distance.setText(distanceText(marker));
 
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -223,9 +222,10 @@ public class MenuActivity extends AppCompatActivity {
                         event.setDistance(distanceString);
                         eventsManager.addEvent(event);
                         adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
-                        gridView.setAdapter(adapter);                        distanceCalculator = new DistanceCalculator(eventsManager.getEvents(), usersManager.getUser(profile).getFirstRan(),
+                        gridView.setAdapter(adapter);
+                        distanceCalculator = new DistanceCalculator(eventsManager.getEvents(), usersManager.getUser(profile).getFirstRan(),
                                 usersManager.getUser(profile).getMainEvent());
-                        distance.setText(distanceCalculator.getDistanceByPeriod());
+                        distance.setText(distanceText(marker));
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -252,6 +252,9 @@ public class MenuActivity extends AppCompatActivity {
                         eventsManager.updateEvent(event);
                         adapter = new GridAdapter(MenuActivity.this, dates, eventsManager.getEvents(), calendar, usersManager.getUser(profile));
                         gridView.setAdapter(adapter);
+                        distanceCalculator = new DistanceCalculator(eventsManager.getEvents(), usersManager.getUser(profile).getFirstRan(),
+                                usersManager.getUser(profile).getMainEvent());
+                        distance.setText(distanceText(marker));
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -271,6 +274,46 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.weekM:
+              marker = Marker.WEEK;
+              distance.setText(distanceText(marker));
+                return true;
+            case R.id.monthM:
+                marker = Marker.MONTH;
+                distance.setText(distanceText(marker));
+                return true;
+            case R.id.periodM:
+                marker = Marker.PERIOD;
+                distance.setText(distanceText(marker));
+                return true;
+            case R.id.logOutM:
+                Intent intent1 = new Intent(this, StartActivity.class);
+                startActivity(intent1);
+                return true;
+            case R.id.addProfileSettingsM:
+                Intent intent2 = new Intent(this, SettingsActivity.class);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
+
+    public String distanceText(Marker marker) {
+        String text = "";
+        if (marker == Marker.PERIOD) {
+            text = distanceCalculator.getDistanceByPeriod();
+        } else if (marker == Marker.MONTH) {
+            text = distanceCalculator.getDistanceByMonth();
+        } else if (marker == Marker.WEEK) {
+            text = distanceCalculator.getDistanceByWeek();
+        }
+        return text;
+    }
+
+
+
+
+
 }

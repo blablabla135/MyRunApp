@@ -61,23 +61,12 @@ public class DistanceCalculator {
 
             try {
                 Date eventDate = dateFormat.parse(event.getDate());
-                Calendar dateEvent = Calendar.getInstance();
-                dateEvent.setTime(eventDate);
 
                 Date firstRanDate = dateFormat.parse(firstRanString);
-                Calendar firstRanCalendar = Calendar.getInstance();
-                firstRanCalendar.setTime(firstRanDate);
 
                 Date mainEventDate = dateFormat.parse(mainEventString);
-                Calendar mainEventCalendar = Calendar.getInstance();
-                mainEventCalendar.setTime(mainEventDate);
 
-                if ((dateEvent.get(Calendar.DAY_OF_MONTH) >= firstRanCalendar.get(Calendar.DAY_OF_MONTH)) &&
-                        (dateEvent.get(Calendar.DAY_OF_MONTH) <= mainEventCalendar.get(Calendar.DAY_OF_MONTH)) &&
-                        (dateEvent.get(Calendar.MONTH) >= firstRanCalendar.get(Calendar.MONTH)) &&
-                        (dateEvent.get(Calendar.MONTH) <= mainEventCalendar.get(Calendar.MONTH)) &&
-                        (dateEvent.get(Calendar.YEAR) >= firstRanCalendar.get(Calendar.YEAR)) &&
-                        (dateEvent.get(Calendar.YEAR) <= mainEventCalendar.get(Calendar.YEAR)) &&
+                if (eventDate.after(firstRanDate) && eventDate.before(mainEventDate) &&
                         !event.getDistance().equals("")) {
                     distance = distance + Double.parseDouble(event.getDistance());
                 }

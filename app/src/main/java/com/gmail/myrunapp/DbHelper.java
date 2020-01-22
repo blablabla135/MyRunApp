@@ -16,6 +16,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USER_PASSWORD = "user_password";
     public static final String COLUMN_USER_FIRST_RAN = "user_first_ran";
     public static final String COLUMN_USER_MAIN_EVENT = "user_main_event";
+    public static final String COLUMN_USER_MAIN_EVENT_NAME = "user_main_event_name";
 
 
     public static final String TABLE_EVENT_DATA = "event";
@@ -28,7 +29,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER_DATA + "("
             + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_USER_NAME + " TEXT,"
             + COLUMN_USER_EMAIL + " TEXT," + COLUMN_USER_PASSWORD + " TEXT," + COLUMN_USER_FIRST_RAN
-            + " TEXT," + COLUMN_USER_MAIN_EVENT + " TEXT" + ")";
+            + " TEXT," + COLUMN_USER_MAIN_EVENT + " TEXT," + COLUMN_USER_MAIN_EVENT_NAME + " TEXT" + ")";
 
     private String CREATE_EVENT_TABLE = "CREATE TABLE " + TABLE_EVENT_DATA + "("
             + COLUMN_EVENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_EVENT_DATE + " TEXT,"

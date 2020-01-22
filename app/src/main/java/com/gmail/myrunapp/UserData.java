@@ -8,6 +8,7 @@ public class UserData {
     private String password;
     private String firstRan;
     private String MainEvent;
+    private String MainEventName;
 
     public int getId() {
         return id;
@@ -55,6 +56,14 @@ public class UserData {
 
     public void setMainEvent(String mainEvent) {
         MainEvent = mainEvent;
+    }
+
+    public String getMainEventName() {
+        return MainEventName;
+    }
+
+    public void setMainEventName(String mainEventName) {
+        MainEventName = mainEventName;
     }
 
 }
