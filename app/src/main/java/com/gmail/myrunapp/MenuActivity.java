@@ -293,6 +293,7 @@ public class MenuActivity extends AppCompatActivity {
                 return true;
             case R.id.addProfileSettingsM:
                 Intent intent2 = new Intent(this, SettingsActivity.class);
+                intent2.putExtra("eMail", profile);
                 startActivity(intent2);
                 return true;
             default:

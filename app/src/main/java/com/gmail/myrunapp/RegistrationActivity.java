@@ -27,10 +27,10 @@ public class RegistrationActivity extends AppCompatActivity {
     private Button firstRan, mainEvent;
     private String firstRanDate, mainEventDate;
 
-    SimpleDateFormat dateFormatDay = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+    private SimpleDateFormat dateFormatDay = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
 
-    Calendar calendarForDB = Calendar.getInstance();
-    Date dateForDB;
+    private Calendar calendarForDB = Calendar.getInstance();
+    private Date dateForDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

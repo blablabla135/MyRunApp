@@ -23,5 +23,6 @@
     <string name="week">Week</string>
     <string name="month">Month</string>
     <string name="period">Period</string>
+    <string name="confirm">confirm</string>
 </resources>
 

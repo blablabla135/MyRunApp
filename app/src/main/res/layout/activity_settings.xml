@@ -17,34 +17,10 @@
         android:gravity="bottom"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextPasswordR"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:ems="10"
-            android:maxLines="1"
-            android:inputType="textPassword"
-            android:hint="@string/password"
-            android:textColor="@color/colorTextBlue"
-            android:textColorHint="@color/colorHintGrey"/>
+
 
         <EditText
-            android:id="@+id/editTextPasswordConfirmR"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:ems="10"
-            android:maxLines="1"
-            android:inputType="textPassword"
-            android:hint="@string/confirmPassword"
-            android:textColor="@color/colorTextBlue"
-            android:textColorHint="@color/colorHintGrey"/>
-
-        <EditText
-            android:id="@+id/editTextMainEventR"
+            android:id="@+id/editTextMainEventS"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="15dp"
@@ -76,7 +52,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonFirstRanR"
+                android:id="@+id/buttonFirstRanS"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_weight="1"
@@ -87,7 +63,7 @@
                 android:onClick="setFirstRan"/>
 
             <Button
-                android:id="@+id/buttonMainEventR"
+                android:id="@+id/buttonMainEventS"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_weight="1"
@@ -97,6 +73,16 @@
                 android:onClick="setMainEvent"/>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonSignUpR"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/confirm"
+            android:onClick="confirm"
+            android:background="@drawable/shape_button_blue"
+            android:textColor="@color/colorTextLight"/>
 
     </LinearLayout>
 

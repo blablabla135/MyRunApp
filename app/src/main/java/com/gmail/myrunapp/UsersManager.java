@@ -108,6 +108,48 @@ public class UsersManager {
         return user;
     }
 
+    public void updateMainEventName(String name, String profile) {
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        String selection = DbHelper.COLUMN_USER_EMAIL + " = ?";
+        String[] selectionArg = {profile};
+
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.COLUMN_USER_MAIN_EVENT_NAME, name);
+
+        db.update(DbHelper.TABLE_USER_DATA, values, selection, selectionArg);
+        db.close();
+    }
+
+    public void updateMainEventDate(String date, String profile) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        String selection = DbHelper.COLUMN_USER_EMAIL + " = ?";
+        String[] selectionArg = {profile};
+
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.COLUMN_USER_MAIN_EVENT, date);
+
+        db.update(DbHelper.TABLE_USER_DATA, values, selection, selectionArg);
+        db.close();
+
+    }
+
+    public void updateFirstRanDate(String date, String profile) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        String selection = DbHelper.COLUMN_USER_EMAIL + " = ?";
+        String[] selectionArg = {profile};
+
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.COLUMN_USER_FIRST_RAN, date);
+
+        db.update(DbHelper.TABLE_USER_DATA, values, selection, selectionArg);
+        db.close();
+
+    }
+
 
 
 }
